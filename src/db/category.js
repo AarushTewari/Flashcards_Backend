@@ -7,3 +7,16 @@ export const createCategory = async (name) => {
     `, [name])
     return result.insertId
 }
+
+export const getCategories = async () => {
+    try{
+        const [result] = await pool.query(
+            `
+                SELECT * FROM Category
+            `
+        )
+        return result;
+    } catch(err) {
+        throw err;
+    }
+}

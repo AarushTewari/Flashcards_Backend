@@ -1,5 +1,17 @@
 import {pool} from './database.js'
 
+export const getFlashcard = async (id) => {
+    try {
+       const [rows] = await pool.query(
+            `SELECT * FROM Flashcards WHERE id = ?`, 
+            [id]
+        )
+        return rows[0]; 
+    } catch(err) {
+        throw err;
+    }
+}
+
 export const getFlashcards = async (user_id, category) => {
     try {
         if(category) {
@@ -33,8 +45,18 @@ export const addFlashcard = async (question, answer, difficulty, cat_name, user_
     }
 }
 
-// const res = await addFlashcard("which sorting algorithm merges the array?", "Merge Sort", "Easy", "DSA", 5);
-// console.log(res)
+export const changeFlashcard = async (question, answer, id) => {
+    try {
+        const [res] = await pool.query(
+            `UPDATE Flashcards SET question = ?, answer = ? WHERE id = ?`,
+            [question, answer, id]
+        )
+        return res;
+    } catch(err) {
+        throw err;
+    }
+}
 
+// const res = await updateFlashcard("Hi", "Hello", 1);
 
 

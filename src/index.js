@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import {authRouter} from './routes/authRoutes.js'
 import { flashcardRouter } from './routes/flashcardRoutes.js'
+import { categoryRouter } from './routes/categoryRoutes.js'
 dotenv.config()
 
 const app = express()
@@ -14,6 +15,7 @@ app.use(express.urlencoded({extended: true}))
 
 app.use("/", authRouter)
 app.use("/flashcards/", flashcardRouter)
+app.use("/categories", categoryRouter)
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
